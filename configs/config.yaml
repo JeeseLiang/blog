@@ -1,0 +1,24 @@
+Server:
+    RunMode: debug
+    Port: 8080
+    Host: 0.0.0.0
+    ReadTimeout: 60
+    WriteTimeout: 60
+App:
+    DefaultPageSize: 10
+    MaxPageSize: 100
+    LogSavePath: storage/logs
+    LogFileName: app
+    LogFileExt: .log
+Database:
+    Driver: mysql
+    Dsn: root:123456@tcp(localhost:3306)/blog_service?charset=utf8mb4&parseTime=True&loc=Local
+    Username: root
+    Password: 123456
+    MaxOpenConns: 30
+    MaxIdleConns: 10
+    Host: 127.0.0.1:3306
+    DBName: blog_service
+    TablePrefix: blog_
+    Charset: utf8mb4
+    ParseTime: true
