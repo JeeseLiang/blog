@@ -11,8 +11,6 @@ App:
     LogFileName: app
     LogFileExt: .log
 Database:
-    Driver: mysql
-    Dsn: root:123456@tcp(localhost:3306)/blog_service?charset=utf8mb4&parseTime=True&loc=Local
     Username: root
     Password: 123456
     MaxOpenConns: 30

@@ -36,8 +36,10 @@ func (e *Error) Details() []string {
 	return e.details
 }
 
-func (e *Error) AddDetails(details []string) {
-	e.details = append(e.details, details...)
+func (e *Error) AddDetails(details []string) *Error {
+	newError := e
+	newError.details = append(newError.details, details...)
+	return newError
 }
 
 func (e *Error) Error() string {
