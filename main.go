@@ -2,6 +2,7 @@ package main
 
 import (
 	"blog/global"
+	"blog/internal/model"
 	"blog/internal/routers"
 	"blog/pkg"
 	"log"
@@ -14,23 +15,21 @@ import (
 func setupSetting() error {
 	s, err := pkg.NewSetting()
 	if err != nil {
-		log.Fatalf("Init failed : %v\n", err)
 		return err
 	}
 
 	err = s.ReadSection("Server", &global.ServerSetting)
 	if err != nil {
-		log.Fatalf("Init failed : %v\n", err)
+
 		return err
 	}
+
 	err = s.ReadSection("App", &global.AppSetting)
 	if err != nil {
-		log.Fatalf("Init failed : %v\n", err)
 		return err
 	}
 	err = s.ReadSection("Database", &global.DatabaseSetting)
 	if err != nil {
-		log.Fatalf("Init failed : %v\n", err)
 		return err
 	}
 
@@ -39,9 +38,26 @@ func setupSetting() error {
 	return nil
 }
 
+func setupDB() (err error) {
+	global.DBEngine, err = model.NewDBEngine()
+	if err != nil {
+		log.Fatalf("NewDBEngine failed : %v\n", err)
+	}
+	return
+}
+
 func init() { //初始化
+
 	// 配置初始化工作
-	setupSetting()
+	err := setupSetting()
+	if err != nil {
+		log.Fatalf("Setup Setting failed : %v\n", err)
+	}
+
+	err = setupDB()
+	if err != nil {
+		log.Fatalf("Setup DB failed : %v\n", err)
+	}
 
 }
 

@@ -12,7 +12,7 @@ func NewSetting() (*Setting, error) {
 
 	// 添加配置文件的所在目录、文件名、后缀
 	s.AddConfigPath("configs/")
-	s.SetConfigFile("config")
+	s.SetConfigName("config")
 	s.SetConfigType("yaml")
 
 	err := s.ReadInConfig()

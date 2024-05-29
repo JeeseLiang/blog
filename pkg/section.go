@@ -22,7 +22,7 @@ type DatabaseSettings struct {
 	UserName     string
 	Password     string
 	Host         string
-	Name         string
+	DBName       string
 	TablePrefix  string
 	CharSet      string
 	ParseTime    bool

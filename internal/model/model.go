@@ -4,6 +4,7 @@ import (
 	"blog/global"
 	"fmt"
 	"log"
+	"net/url"
 	"os"
 	"time"
 
@@ -23,14 +24,15 @@ type Model struct {
 }
 
 func NewDBEngine() (*gorm.DB, error) {
-	dsn := fmt.Sprintf("%s:%s@tcp(%s)/%s?charset=%s&parseTime=%t&loc=local",
+	loc := "Asia/Shanghai"
+	dsn := fmt.Sprintf("%s:%s@tcp(%s)/%s?charset=%s&parseTime=%t&loc=",
 		global.DatabaseSetting.UserName,
 		global.DatabaseSetting.Password,
 		global.DatabaseSetting.Host,
-		global.DatabaseSetting.Name,
+		global.DatabaseSetting.DBName,
 		global.DatabaseSetting.CharSet,
 		global.DatabaseSetting.ParseTime,
-	)
+	) + url.QueryEscape(loc)
 
 	newLogger := logger.New(
 		log.New(os.Stdout, "\r\n", log.LstdFlags), // io writer
@@ -45,7 +47,7 @@ func NewDBEngine() (*gorm.DB, error) {
 
 	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{Logger: newLogger})
 	if err != nil {
-		log.Fatalf("Setup DBEngine failed : %v\n", err)
+		fmt.Printf("%s\n", dsn)
 		return nil, err
 	}
 

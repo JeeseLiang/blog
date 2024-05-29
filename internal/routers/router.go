@@ -23,6 +23,7 @@ func NewRouter() *gin.Engine {
 		apiv1.PUT("/articles/:id", articles.Update)
 		apiv1.GET("/articles/:id", articles.Get)
 		apiv1.GET("/articles", articles.List)
+
 	}
 
 	return r
