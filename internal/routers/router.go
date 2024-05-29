@@ -1,6 +1,7 @@
 package routers
 
 import (
+	"blog/internal/middleware"
 	v1 "blog/internal/routers/api/v1"
 
 	"github.com/gin-gonic/gin"
@@ -8,6 +9,7 @@ import (
 
 func NewRouter() *gin.Engine {
 	r := gin.Default()
+	r.Use(middleware.Translation())
 	apiv1 := r.Group("/api/v1")
 	tag := v1.NewTag()
 	articles := v1.NewArticle()
