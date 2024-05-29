@@ -44,7 +44,8 @@ func (r *Response) ToResponseList(dataList interface{}, totalRows int) {
 func (r *Response) ToErrorResponse(err *errcode.Error) {
 	details := err.Details()
 	r.Ctx.JSON(err.StatusCode(), gin.H{
-		"msg":     err.Error(),
+		"code":    err.Code(),
+		"msg":     err.Msg(),
 		"details": details,
 	})
 }
