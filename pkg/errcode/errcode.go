@@ -36,10 +36,13 @@ func (e *Error) Details() []string {
 	return e.details
 }
 
-func (e *Error) AddDetails(details []string) *Error {
-	newError := e
-	newError.details = append(newError.details, details...)
-	return newError
+func (e *Error) WithDetails(details []string) *Error {
+	newError := *e
+	newError.details = []string{}
+	for _, d := range details {
+		newError.details = append(newError.details, d)
+	}
+	return &newError
 }
 
 func (e *Error) Error() string {
