@@ -11,7 +11,7 @@ type CreateArticleRequest struct {
 }
 
 type DeleteArticleRequest struct {
-	Id uint32 `form:"id" binding:"required,gte=1"`
+	ID uint32 `form:"id" binding:"required,gte=1"`
 }
 
 type CountArticleRequest struct {
