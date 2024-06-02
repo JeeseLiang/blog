@@ -31,6 +31,7 @@ func (e VaildErrors) Error() string {
 	return strings.Join(e.Errors(), ",")
 }
 
+// 将请求携带的参数和后端的结构体绑定起来
 func BindAndVaild(c *gin.Context, v interface{}) (bool, VaildErrors) {
 	var errs VaildErrors
 	err := c.ShouldBind(v)

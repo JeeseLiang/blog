@@ -12,3 +12,12 @@ var (
 	UnauthoerizedTokenTimeout      = NewError(10007, "鉴权失败，Token超时")
 	UnauthoerizedTokenGeneralError = NewError(10008, "鉴权失败，Token生成失败")
 )
+
+// 定义业务错误码
+var (
+	ErrorGetTagListFail = NewError(20001, "获取标签列表失败")
+	ErrorCreateTagFail  = NewError(20002, "创建标签失败")
+	ErrorDeleteTagFail  = NewError(20003, "删除标签失败")
+	ErrorUpdateTagFail  = NewError(20004, "更新标签失败")
+	ErrorCountTagFail   = NewError(20005, "统计标签失败")
+)

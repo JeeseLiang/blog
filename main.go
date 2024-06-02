@@ -5,11 +5,13 @@ import (
 	"blog/internal/model"
 	"blog/internal/routers"
 	"blog/pkg"
+	"blog/pkg/logger"
 	"log"
 	"net/http"
 	"time"
 
 	"github.com/gin-gonic/gin"
+	"gopkg.in/natefinch/lumberjack.v2"
 )
 
 func setupSetting() error {
@@ -45,7 +47,16 @@ func setupDB() (err error) {
 	}
 	return
 }
-
+func setupLogger() (err error) {
+	fileName := global.AppSetting.LogSavePath + "/" + global.AppSetting.LogFileName + global.AppSetting.LogFileExt
+	global.Logger = logger.NewLogger("", log.LstdFlags, &lumberjack.Logger{
+		Filename:  fileName,
+		MaxSize:   60,
+		MaxAge:    10,
+		LocalTime: true,
+	}).WithCaller(2)
+	return nil
+}
 func init() { //初始化
 
 	// 配置初始化工作
@@ -53,12 +64,16 @@ func init() { //初始化
 	if err != nil {
 		log.Fatalf("Setup Setting failed : %v\n", err)
 	}
-
+	// 数据库初始化
 	err = setupDB()
 	if err != nil {
 		log.Fatalf("Setup DB failed : %v\n", err)
 	}
-
+	// 日志初始化
+	err = setupLogger()
+	if err != nil {
+		log.Fatalf("Setup Logger failed : %v\n", err)
+	}
 }
 
 func main() {
